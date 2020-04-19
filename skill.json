@@ -1,0 +1,27 @@
+{
+  "manifest": {
+    "apis": {
+      "custom": {
+        "endpoint": {
+          "uri": "serverlessrepo-Space-Fact-alexaskillskitnodejsfact-6BCWL24OG1UT",
+          "sourceDir": "lambda\\us-east-1_serverlessrepo-Space-Fact-alexaskillskitnodejsfact-6BCWL24OG1UT"
+        },
+        "interfaces": []
+      }
+    },
+    "manifestVersion": "1.0",
+    "publishingInformation": {
+      "locales": {
+        "en-US": {
+          "name": "Space Fact"
+        },
+        "en-IN": {
+          "name": "Space Fact"
+        },
+        "en-GB": {
+          "name": "Space Fact"
+        }
+      }
+    }
+  }
+}
