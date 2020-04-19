@@ -20,12 +20,30 @@ const GetNewFactHandler = {
     // concatenates a standard message with the random fact
     const speakOutput = requestAttributes.t('GET_FACT_MESSAGE') + randomFact;
 
+    const SessionAttributes = handlerInput.attributesManager.getSessionAttributes();
+    SessionAttributes.Last = speakOutput;
+
     return handlerInput.responseBuilder
       .speak(speakOutput)
       // Uncomment the next line if you want to keep the session open so you can
       // ask for another fact without first re-opening the skill
       .reprompt(requestAttributes.t('HELP_REPROMPT'))
       .withSimpleCard(requestAttributes.t('SKILL_NAME'), randomFact)
+      .getResponse();
+  },
+};
+
+const RepeatHandler = {
+  canHandle(handlerInput) {
+    const request = handlerInput.requestEnvelope.request;
+    return request.type === 'IntentRequest' && (request.intent.name === 'AMAZON.RepeatIntent');
+  },
+  handle(handlerInput) {
+    const SessionAttributes = handlerInput.attributesManager.getSessionAttributes();
+    var speakOutput = SessionAttributes.Last;
+    return handlerInput.responseBuilder
+      .speak(speakOutput)
+      .withShouldEndSession(false)
       .getResponse();
   },
 };
@@ -143,6 +161,7 @@ exports.handler = skillBuilder
     ExitHandler,
     FallbackHandler,
     SessionEndedRequestHandler,
+    RepeatHandler,
   )
   .addRequestInterceptors(LocalizationInterceptor)
   .addErrorHandlers(ErrorHandler)
@@ -197,6 +216,23 @@ const enData = {
         'On Mars, the Sun appears about half the size as it does on Earth.',
         'Jupiter has the shortest day of all the planets.',
         'The Sun is an almost perfect sphere.',
+        `Mercury & Venus are the only 2 planets in our solar system that have no moons.`,
+        `If a star passes too close to a black hole, it can be torn apart.`,
+        `The hottest planet in our solar system is Venus, with a temperature upto 460 degree Celsius.`,
+        `Our solar system is 4.57 billion years old.`,
+        `Enceladus, one of Saturn’s smaller moons, reflects 90% of the Sun’s light.`,
+        `The highest mountain discovered is the Olympus Mons, which is located on Mars.`,
+        `The Whirlpool Galaxy was the first celestial object identified as being spiral.`,
+        `The Milky Way galaxy is 105,700 light-years wide.`,
+        `The Sun weighs about 330,000 times more than Earth.`,
+        `Footprints left on the Moon won’t disappear as there is no wind.`,
+        `Because of lower gravity, a person who weighs 220 lbs on Earth would weigh 84 lbs on Mars.`,
+        `There are 79 known moons orbiting Jupiter.`,
+        `The Martian day is 24 hours 39 minutes and 35 seconds long.`,
+        `Earth is the only planet not named after a God.`,
+        `Pluto is smaller than the United States.`,
+        `According to mathematics, white holes are possible, although as of yet we have found none.`,
+        `In our solar system that are 4 planets known as gas giants: Jupiter, Saturn, Uranus and Neptune.`
       ],
   },
 };
@@ -317,7 +353,24 @@ const hiData = {
         'सूरज से दूर होने के बावजूद, Venus का तापमान Mercury से ज़्यादा होता हैं',
         'Earth के तुलना से Mars में सूरज का size तक़रीबन आधा हैं',
         'सारे ग्रहों में Jupiter का दिन सबसे कम हैं',
-        'सूरज का shape एकदम गेंद आकार में हैं'
+        'सूरज का shape एकदम गेंद आकार में हैं',
+        `बुध और शुक्र हमारे सौर मंडल के केवल 2 ग्रह हैं जिनका कोई चंद्रमा नहीं है।`,
+        `यदि कोई तारा किसी ब्लैक होल के बहुत पास से गुजरता है, तो वह फट सकता है।`,
+        `हमारे सौरमंडल का सबसे गर्म ग्रह शुक्र है।`,
+        `हमारी सौर प्रणाली 4.57 बिलियन वर्ष पुरानी है।`,
+        `एन्सेलाडस, शनि के छोटे चंद्रमाओं में से एक, सूर्य के प्रकाश का 90% दर्शाता है।`,
+        `खोजा गया सबसे ऊँचा पर्वत ओलंपस मॉन्स है, जो मंगल ग्रह पर स्थित है।`,
+        `व्हर्लपूल गैलेक्सी सर्पिल के रूप में पहचानी जाने वाली पहली खगोलीय वस्तु थी।`,
+        `मिल्की वे आकाशगंगा 105,700 प्रकाश वर्ष चौड़ी है।`,
+        `सूर्य का वजन पृथ्वी से लगभग 330,000 गुना अधिक है।`,
+        `चंद्रमा पर छोड़े गए पैरों के निशान गायब नहीं होंगे क्योंकि कोई हवा नहीं है।`,
+        `कम गुरुत्वाकर्षण के कारण, पृथ्वी पर 220 पाउंड वजन वाले एक व्यक्ति का वजन मंगल पर 84 पाउंड होगा।`,
+        `बृहस्पति की परिक्रमा करने वाले 79 ज्ञात चंद्रमा हैं।`,
+        `मार्टियन दिन 24 घंटे 39 मिनट और 35 सेकंड लंबा है।`,
+        `पृथ्वी एकमात्र ऐसा ग्रह है जिसका नाम ईश्वर नहीं है।`,
+        `प्लूटो संयुक्त राज्य अमेरिका से छोटा है।`,
+        `गणित के अनुसार, श्वेत छिद्र संभव हैं, हालाँकि अभी तक हमें कोई नहीं मिला है।`,
+        `हमारे सौर मंडल में 4 ग्रह हैं जिन्हें गैस दिग्गज के रूप में जाना जाता है: बृहस्पति, शनि, यूरेनस और नेपच्यून।`
       ],
   },
 };

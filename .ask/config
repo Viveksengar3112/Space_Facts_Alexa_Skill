@@ -29,7 +29,7 @@
             "codeUri": "lambda/us-east-1_serverlessrepo-Space-Fact-alexaskillskitnodejsfact-6BCWL24OG1UT",
             "functionName": "serverlessrepo-Space-Fact-alexaskillskitnodejsfact-6BCWL24OG1UT",
             "handler": "index.handler",
-            "revisionId": "4fcf5364-e838-48ec-b006-41a068c7bfde",
+            "revisionId": "ecb40109-a4e2-458d-a35f-f3af5271ffac",
             "runtime": "nodejs10.x"
           }
         ]
