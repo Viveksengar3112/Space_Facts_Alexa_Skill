@@ -21,7 +21,7 @@ const GetNewFactHandler = {
     const speakOutput = requestAttributes.t('GET_FACT_MESSAGE') + randomFact;
 
     const SessionAttributes = handlerInput.attributesManager.getSessionAttributes();
-    SessionAttributes.Last = speakOutput;
+    SessionAttributes.Last = randomFact;
 
     return handlerInput.responseBuilder
       .speak(speakOutput)
@@ -43,7 +43,8 @@ const RepeatHandler = {
     var speakOutput = SessionAttributes.Last;
     return handlerInput.responseBuilder
       .speak(speakOutput)
-      .withShouldEndSession(false)
+      .reprompt(requestAttributes.t('HELP_REPROMPT'))
+      .withSimpleCard(requestAttributes.t('SKILL_NAME'), speakOutput)
       .getResponse();
   },
 };
